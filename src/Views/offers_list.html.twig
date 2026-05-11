@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Gestion des offres{% endblock %}
+
+{% block content %}
+<section class="layout-principal">
+    <div class="liste-offres">
+        
+        <div class="admin-header">
+            <h1>Gestion des offres</h1>
+            <a href="/admin/offer/create" class="btn-success">+ Créer une offre</a>
+        </div>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Catégorie</th>
+                    <th>Salaire</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for offre in offres %}
+                    <tr>
+                        <td>{{ offre.ID_offer }}</td>
+                        <td><strong>{{ offre.Title }}</strong></td>
+                        <td>{{ offre.Category }}</td>
+                        <td>{{ offre.Salary }} €</td>
+                        <td>
+                            <a href="/admin/offer/edit/{{ offre.ID_offer }}" class="btn-edit">✏️ Modifier</a>
+                            <a href="/admin/offer/delete/{{ offre.ID_offer }}" class="btn-delete-bg" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ?');">🗑️ Supprimer</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucune offre trouvée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

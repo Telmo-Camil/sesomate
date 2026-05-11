@@ -1,0 +1,37 @@
+{% block header %}
+    <div class="logo-container">
+        <a href="/">
+            <img src="./Asset/img/image.png" alt="logo" class="logo">
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="titre-container">
+            <h1>SeSoMate</h1>
+            <h2>Trouvez les meilleurs offres du moment</h2>
+        </div>
+    <div class="actions-container">
+        <form action="/offer" method="GET">
+            <input type="search" name="q" placeholder="Rechercher une offre, un mot-clé..." required>
+            <button type="submit" class="btn-search">Rechercher</button>      
+        </form>
+    </div>
+    <a href="/offer" class="btn-load-more">Afficher toutes les offres</a>
+    </div>
+
+    <div class="login-container">
+    {% if user %}
+        <a href="/deconnexion">
+            <button>Sign out</button>
+        </a>
+    <a href="/espace-compte" class="user-profile-link">
+            <img src="/Asset/img/user.png" alt="Profil">
+            <span>{{ user.pseudo }}</span>
+        </a>
+    {% else %}
+        <a href="/connexion">
+            <button>Sign in</button>
+        </a>
+    {% endif %}
+</div>
+{% endblock %}

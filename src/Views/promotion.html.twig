@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <section class="categories-populaires">
+        <h3>
+            Recherches fréquentes :
+        </h3>
+        {% for category in category %}
+            {% if category %}
+                <div class="tags-container">
+                    <span class="tag">
+                        {{ category }}
+                    </span>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </section>
+    <div class="layout-principal">
+        <section class="liste-offres">
+            <h2>
+                Les offres du moment...
+            </h2>
+            {% for offre in offres_emploi %}
+                <article class="offre-card">
+                    <div class="offre-header">
+                        <h3>
+                            {{ offre.CompanyName|default('Entreprise non précisée') }}
+                        </h3>
+                        <p class="offre-title">
+                            {{ offre.Title }}
+                        </p>
+                        <p class="offre-title">
+                        A postuler pour l'offre : {{ user.pseudo }}
+                        </p>
+                    </div>
+                    <div class="offre-details">
+                        {% if offre.Duration %}
+                            <h4>
+                                {{ offre.Duration }}
+                                mois
+                            </h4>
+                        {% endif %}
+                        {% if offre.Salary %}
+                            <h4>
+                                {{ offre.Salary }}
+                                €
+                            </h4>
+                        {% endif %}
+                        {% if offre.Category %}
+                            <h4>
+                                {{ offre.Category }}
+                            </h4>
+                        {% endif %}
+                    </div>
+                    <div class="offre-actions">
+                        <a href="/postuler/{{ offre.ID_offer }}" class="btn-postuler">
+                            Postuler
+                        </a>
+                        <button class="btn-heart" data-id="{{ offre.ID_offer }}">
+                            <svg viewBox="0 0 24 24" width="28" height="28">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </article>
+            {% else %}
+                <p>
+                    Aucun élève n'a postulé pour le moment.
+                </p>
+            {% endfor %}
+            <button class="btn-load-more">
+                Voir plus d'offres
+            </button>
+        </section>
+        </div>
+    {% endblock %}
+    {% block javascripts %}
+        
+    {% endblock %}
+    

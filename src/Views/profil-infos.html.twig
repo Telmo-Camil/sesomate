@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<main class="main-centered">
+    <section class="form-section">
+        <h2 class="page-title">Mon Profil</h2>
+
+        <div class="form-card profile-view">
+            <div class="input-group">
+                <label>Nom</label>
+                <p class="info-value">{{ user.Lastname }}</p>
+            </div>
+
+            <div class="input-group">
+                <label>Prénom</label>
+                <p class="info-value">{{ user.Name }}</p>
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <p class="info-value">{{ user.Email }}</p>
+            </div>
+
+            <div class="input-group">
+                <label>Téléphone</label>
+                <p class="info-value">{{ user.Phone_number|default('Non renseigné') }}</p>
+            </div>
+
+            <div class="input-group">
+                <label>Mot de passe</label>
+                <p class="info-value">********</p>
+            </div>
+
+            <div class="back-link-container">
+                <a href="/espace-compte" class="btn-submit" style="text-decoration: none; display: inline-block;">
+                    Retour au compte
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

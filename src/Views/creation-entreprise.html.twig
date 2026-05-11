@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<main class="main-centered">
+    <section class="form-section">
+        <h2 class="page-title">Créer votre entreprise</h2>
+        
+        <div class="form-card">
+            <form action="/admin/entreprises/store" method="post">
+                <div class="input-group">
+                    <label for="company_name">Nom de l'entreprise :</label>
+                    <input type="text" id="company_name" name="name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="numero_tel">Numéro de téléphone :</label>
+                    <input 
+                        type="tel" 
+                        id="numero_tel" 
+                        name="phone" 
+                        maxlength="10" 
+                        required
+                        pattern="[0-9]{10}" 
+                        title="Veuillez entrer 10 chiffres (ex: 0102030405)"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email de contact :</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="input-group row-group">
+                    <div class="half-width">
+                        <label for="secteur">Secteur d'activité :</label>
+                        <select id="secteur" name="secteur">
+                            <option value="">Sélectionnez un secteur</option>
+                            <option value="informatique">Informatique</option>
+                            <option value="sante">Santé</option>
+                            <option value="finance">Finance</option>
+                            <option value="education">Éducation</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="half-width">
+                        <label for="taille">Taille d'entreprise :</label>
+                        <select id="taille" name="taille">
+                            <option value="">Sélectionnez une taille</option>
+                            <option value="startup">Startup</option>
+                            <option value="pm">PME</option>
+                            <option value="grande">Grande entreprise</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="description">Description :</label>
+                    <textarea id="description" name="description" rows="4"></textarea>
+                </div>
+
+                <input type="submit" value="Créer l'entreprise" class="btn-submit">
+                
+                <div class="back-link-container text-center">
+                    <a href="/admin/entreprises" class="link-gray">← Annuler et retourner au menu</a>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}

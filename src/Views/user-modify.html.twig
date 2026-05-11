@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <main class="main-register">
+        {# ⚠️ Action modifiée pour update du compte #}
+        <form action="/admin/utlisateur/modified/{{users.ID_user}}" method="post" enctype="multipart/form-data" class="register-split-container">
+            <div class="split-left-upload">
+                {# Image existante ou par défaut #}
+                <img src="{{ users.Photo_path }}" alt="Photo de profil" id="profile-preview" class="default-user-icon">
+                <h3>Modifier la photo de profil</h3>
+                <input type="file" id="photo" name="photo" accept="image/*" class="standard-file-input">
+            </div>
+
+            <div class="split-right-form">
+                <div class="form-card">
+                    <h2 class="page-title">Modifier mon compte</h2>
+
+                    <div class="input-group row-group">
+                        <div class="half-width">
+                            <label for="lastname">Nom * :</label>
+                            <input type="text" id="lastname" name="lastname" value="{{ users.Lastname }}" required>
+                        </div>
+                        <div class="half-width">
+                            <label for="firstname">Prénom * :</label>
+                            <input type="text" id="firstname" name="firstname" value="{{ users.Firstname }}" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email * :</label>
+                        <input type="email" id="email" name="email" value="{{ users.Email }}" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Nouveau mot de passe :</label>
+                        {# Pas obligatoire en modification #}
+                        <input type="password" id="password" name="password" placeholder="Laisser vide pour ne pas changer">
+                    </div>
+
+                    <div class="input-group row-group">
+                        <div class="half-width">
+                            <label for="Role">Rôle * :</label>
+                            <select id="Role" name="Role" required>
+                                <option value="">-Choisir-</option>
+                                {% for role in roles %}
+                                    <option value="{{ role.Status }}"
+                                        {% if role.Status == users.status %}selected{% endif %}>
+                                        {{ role.Status }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="half-width">
+                            <label for="phone">Téléphone :</label>
+                            <input type="text" id="phone" name="phone" value="{{ users.Phone_number }}">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        Mettre à jour le compte
+                    </button>
+                </div>
+            </div>
+        </form>
+    </main>
+<script src="/js/preview.js" defer></script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

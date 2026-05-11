@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<main class="main-centered">
+    <section class="form-section company-list-section">
+        <h2 class="page-title">Liste des Entreprises</h2>
+
+        <div class="form-card">
+            <table class="company-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for company in companies %}
+                    <tr>
+                        <td>{{ company.Name }}</td>
+                        <td>{{ company.Email }}</td>
+                        <td>{{ company.Phone_Number }}</td>
+                        <td class="text-center">
+                            {# Modifier #}
+                            <a href="/admin/entreprises/edit/{{ company.ID_company }}" class="link-action link-edit">
+                                Modifier
+                            </a>
+
+                            {# Avis  #}
+                            <a href="/admin/entreprises/evaluations/{{ company.ID_company }}" class="link-action link-avis">
+                                Avis
+                            </a>
+
+                            {# Supprimer  #}
+                            <a href="/admin/entreprises/delete/{{ company.ID_company }}" 
+                               class="btn-delete"
+                               onclick="return confirm('Voulez-vous vraiment supprimer l\'entreprise {{ company.Name }} ?')">
+                                Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="empty-msg">
+                            Aucune entreprise enregistrée.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="back-link-container">
+                <a href="/admin/entreprises" class="link-blue">← Retour au menu gestion</a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {% if offer %}Modifier l'offre{% else %}Créer une offre{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="main-centered">
+    <div class="form-card">
+        
+        <h2>{% if offer %}Modifier l'offre #{{ offer.ID_offer }}{% else %}Créer une nouvelle offre{% endif %}</h2>
+
+        <form action="/admin/offer/save" method="POST">
+            
+            <input type="hidden" name="ID_offer" value="{{ offer.ID_offer | default('') }}">
+
+            <div class="input-group">
+                <label for="Title">Titre de l'offre *</label>
+                <input type="text" id="Title" name="Title" value="{{ offer.Title | default('') }}" required>
+            </div>
+
+            <div class="input-group">
+                <label for="ID_company">Entreprise *</label>
+                <select id="ID_company" name="ID_company" required>
+                    <option value="">-- Sélectionnez une entreprise --</option>
+                    {% for company in companies %}
+                        <option value="{{ company.ID_company }}" {% if offer and offer.ID_company == company.ID_company %}selected{% endif %}>
+                            {{ company.Name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="row-group">
+                <div class="half-width input-group">
+                    <label for="Category">Catégorie</label>
+                    <input type="text" id="Category" name="Category" value="{{ offer.Category | default('') }}">
+                </div>
+                <div class="half-width input-group">
+                    <label for="Salary">Salaire (€)</label>
+                    <input type="number" step="0.01" id="Salary" name="Salary" value="{{ offer.Salary | default('') }}" class="form-input-number">
+                </div>
+            </div>
+
+            <div class="row-group">
+                <div class="half-width input-group">
+                    <label for="Duration">Durée (mois)</label>
+                    <input type="number" id="Duration" name="Duration" value="{{ offer.Duration | default('') }}" class="form-input-number">
+                </div>
+                <div class="half-width input-group">
+                    <label for="Start_date">Date de début</label>
+                    <input type="date" id="Start_date" name="Start_date" value="{{ offer.Start_date | default('') }}" class="form-input-date">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="Description">Description</label>
+                <textarea id="Description" name="Description" rows="5">{{ offer.Description | default('') }}</textarea>
+            </div>
+
+            <div class="form-actions row-group">
+                <a href="/admin/offer" class="btn-cancel half-width">Annuler</a>
+                <button type="submit" class="btn-submit half-width">💾 Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

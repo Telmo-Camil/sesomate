@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="layout-principal">
+        
+        <section class="liste-offres">
+            
+            {% if users != null %}
+                <article class="offre-card">
+                    <div class="offre-header">
+                        <img src="../Asset/img/image.png" alt="logo" class="logo">
+                        <h3>{{ users.Name|default('Utilisateur') }} {{ users.Lastname|upper }}</h3>
+                        <p class="offre-title">{{ users.Email }}</p>
+                    </div>
+
+                    <div class="offre-details">
+                        {% if users.status %}
+                            <h4 class="badge-status">Statut : {{ users.status }}</h4>
+                        {% endif %}
+                        
+                        {% if users.Phone_number %}
+                            <h4>📞 {{ users.Phone_number }}</h4>
+                        {% endif %}
+                    </div>
+                </article>
+
+        </section>
+        <aside class="sidebar">
+            <div class="widget alert-widget">
+                <h3>Options</h3>
+                <form action="/admin/utlisateur/modify/{{users.ID_user}}" method="post">
+                    <button type="submit" class="btn-supprimer">Modifier le compte</button>
+                </form>
+                <form action="/admin/utilisateurs/delete/{{ users.ID_user }}" method="post" onsubmit="return confirm('Supprimer cet utilisateur ?')">
+                    <button type="submit" class="btn-supprimer" onsubmit="return confirm('Supprimer cet utilisateur ?')">Supprimer le compte</button>
+                </form>
+            </div>
+        </aside>  
+            {% else %}
+                <p>Aucun utilisateur trouvé dans la base de données.</p>
+            {% endif %}
+ 
+    </div>
+{% endblock %}

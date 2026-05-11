@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<main class="main-centered">
+    <section class="form-section">
+        <h2 class="page-title">Évaluer l'entreprise : {{ company.Name }}</h2>
+        
+        <div class="form-card">
+            {# Formulaire vers la méthode POST #}
+            <form action="/evaluate/{{ company.ID_company }}" method="post">
+                
+                <div class="input-group">
+                    <label for="rate">Note sur 5 :</label>
+                    <select name="rate" id="rate" required>
+                        <option value="">-- Veuillez choisir une note --</option>
+                        <option value="5">5 - Excellent</option>
+                        <option value="4">4 - Très bien</option>
+                        <option value="3">3 - Bien</option>
+                        <option value="2">2 - Passable</option>
+                        <option value="1">1 - Médiocre</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="comment">Votre avis / Commentaire :</label>
+                    <textarea name="comment" id="comment" rows="6" placeholder="Racontez votre expérience..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <input type="submit" value="Envoyer l'évaluation" class="btn-submit">
+                </div>
+
+                <div class="back-link-container text-center" style="margin-top: 20px;">
+                    {# Modification du lien : retour à l'accueil au lieu de la liste admin #}
+                    <a href="/" class="link-gray">← Annuler et retourner à l'accueil</a>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}

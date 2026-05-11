@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+            <div class="container">
+                <form action="/admin/utilisateurs/results" method="post" enctype="multipart/form-data">
+                        <input type="search" name="search" id="search" placeholder="Rechercher...">
+
+                            <select name="filter" id="filter">
+                                {% for role in roles %}
+                                    {# ✅ Même casse partout : Status avec S majuscule #}
+                                    <option value="{{ role.Status }}">
+                                    {{ role.Status }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                </form>
+            </div>
+    <div class="layout-principal">
+        <section class="liste-offres">
+            <h2>Résultats pour la recherche '{{search}}'</h2>
+            
+            {% for user in users %}
+                <article class="offre-card">
+                    <div class="offre-header">
+                        {# On affiche le Nom et Prénom issus de la table Profil #}
+                        <h3>{{ user.Name|default('Utilisateur') }} {{ user.Lastname|upper }}</h3>
+                        <p class="offre-title">{{ user.Email }}</p>
+                    </div>
+
+                    <div class="offre-details">
+                        {# Statut issu de la table User_ #}
+                        {% if user.status %}
+                            <h4 class="badge-status">Statut : {{ user.status }}</h4>
+                        {% endif %}
+                        
+                        {# Téléphone issu de la table Profil #}
+                        {% if user.Phone_number %}
+                            <h4>📞 {{ user.Phone_number }}</h4>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="offre-actions">
+                        <a href="/utilisateur/{{ user.ID_user }}" class="btn-postuler">Voir le profil</a>
+                    </div>
+                </article>
+            {% else %}
+                <p>Aucun utilisateur trouvé dans la base de données.</p>
+            {% endfor %}
+
+            <button class="btn-load-more">Charger plus d'utilisateurs</button>
+        </section>
+
+        <aside class="sidebar">
+            <div class="widget alert-widget">
+                <h3>Options :</h3>
+                <form action="/admin/utilisateurs/create" method="get">
+                    <button type="submit" class="btn-supprimer">Créer un compte</button>
+                </form>
+            </div>
+
+            <div class="widget info-widget">
+                <h3>Rôles disponibles</h3>
+                <ul>
+                    <li>✓ Admin : Gestion totale</li>
+                    <li>✓ Pilote : Gestion de sa promotion</li>
+                    <li>✓ Etudiant : Accès limité</li>
+                </ul>
+            </div>
+        </aside>  
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<main class="main-centered">
+    <section class="form-section">
+        <h2 class="page-title">Avis sur l'entreprise : {{ company.Name }}</h2>
+        
+        <div class="form-card">
+            {# 평균 점수 표시 영역 #}
+            <div class="average-rating-box">
+                <strong>Note Moyenne :</strong> 
+                <span class="rating-score">
+                    {{ average ? average|number_format(1) ~ " / 5" : "Aucune note" }}
+                </span>
+            </div>
+
+            <table class="company-table">
+                <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Note</th>
+                        <th>Commentaire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for eval in evaluations %}
+                    <tr>
+                        <td>
+                            <strong class="user-fullname">{{ eval.Name }} {{ eval.Lastname }}</strong><br>
+                            <small class="user-email">{{ eval.Email }}</small>
+                        </td>
+                        <td class="rating-cell">
+                            {{ eval.Rate }} / 5
+                        </td>
+                        <td class="comment-cell">
+                            "{{ eval.Comment|default('Pas de commentaire') }}"
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3" class="empty-msg">Cet établissement n'a pas encore reçu d'avis.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="back-link-container">
+                <a href="/admin/entreprises/list" class="link-back-bold">
+                    ← Retour à la liste des entreprises
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

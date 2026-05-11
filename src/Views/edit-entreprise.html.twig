@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<main class="main-centered">
+    <section class="form-section">
+        <h2 class="page-title">Modifier l'entreprise : {{ company.Name }}</h2>
+        <div class="form-card">
+            <form action="/admin/entreprises/update/{{ company.ID_company }}" method="post">
+                <div class="input-group">
+                    <label for="name">Nom :</label>
+                    <input type="text" id="name" name="name" value="{{ company.Name }}" required>
+                </div>
+                <div class="input-group">
+                    <label for="numero_tel">Téléphone :</label>
+                    <input type="tel" id="numero_tel" name="phone" value="{{ company.Phone_Number }}" 
+                           maxlength="10" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                </div>
+                <div class="input-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" value="{{ company.Email }}" required>
+                </div>
+                <div class="input-group">
+                    <label for="description">Description :</label>
+                    <textarea id="description" name="description" rows="4">{{ company.Description }}</textarea>
+                </div>
+                <input type="submit" value="Enregistrer les modifications" class="btn-submit">
+                <div class="back-link-container text-center">
+                    <a href="/admin/entreprises/list" class="link-gray">← Annuler</a>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}

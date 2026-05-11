@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <main class="main-register">
+        <form action="/inscription" method="post" enctype="multipart/form-data" class="register-split-container">
+            <div class="split-left-upload">
+                <img src="/Asset/img/user.png" alt="Icône utilisateur par défaut" id="profile-preview" class="default-user-icon">
+                    <h3>
+                        Choisir une photo de profil
+                    </h3>
+                    <input type="file" id="photo" name="photo" accept="image/*" required class="standard-file-input"></div>
+                    <div class="split-right-form">
+                        <div class="form-card">
+                            <h2 class="page-title">
+                                S'inscrire
+                            </h2>
+                            <div class="input-group row-group">
+                                <div class="half-width">
+                                    <label for="lastname">
+                                        Nom * :
+                                    </label>
+                                    <input type="text" id="lastname" name="lastname" required></div>
+                                    <div class="half-width">
+                                        <label for="firstname">
+                                            Prénom * :
+                                        </label>
+                                        <input type="text" id="firstname" name="firstname" required></div>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="email">
+                                            Email * :
+                                        </label>
+                                        <input type="email" id="email" name="email" required></div>
+                                        <div class="input-group">
+                                            <label for="password">
+                                                Mot de passe * :
+                                            </label>
+                                            <input type="password" id="password" name="password" required></div>
+                                            <div class="input-group row-group">
+                                                <div class="half-width">
+                                                    <label for="utilisateur">
+                                                        Rôle * :
+                                                    </label>
+                                                    <select id="Role" name="Role" required>
+                                                        <option value="">
+                                                            -Choisir-
+                                                        </option>
+                                                        {% for role in roles %}
+                                                            {# ✅ Même casse partout : Status avec S majuscule #}
+                                                            <option value="{{ role.Status }}">
+                                                                {{ role.Status }}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="half-width">
+                                                    <label for="phone">
+                                                        Téléphone :
+                                                    </label>
+                                                    <input type="phone" id="phone" name="phone"></div>
+                                                </div>
+                                                <button type="submit" class="btn-submit">
+                                                    Créer un compte
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </main>
+                            <script src="/js/preview.js" defer></script>
+                            {% endblock %}
+                            {% block javascripts %}
+                                {{ parent() }}
+                            {% endblock %}
+                            

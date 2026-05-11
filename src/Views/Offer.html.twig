@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="page-header-centered">
+    <h1>Toutes nos offres d'emploi</h1>
+    <p>Trouvez le poste qui correspond à vos attentes.</p>
+</div>
+
+<div class="layout-offres">
+    
+    <aside class="sidebar-filtres">
+        <form action="/offer" method="GET" class="form-card">
+            <h2>Filtres</h2>
+            
+            <input type="hidden" name="q" value="{{ app.request.get('q') }}">
+
+            <div class="input-group">
+                <label>Secteur</label>
+                <select name="category">
+                    <option value="">Tous les secteurs</option>
+                    <option value="Informatique">Informatique</option>
+                    <option value="Data">Data</option>
+                    <option value="Energie">Energie</option>
+                    <option value="Management">Management</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Salaire minimum (€)</label>
+                <input type="number" name="min_salary" placeholder="ex: 2000">
+            </div>
+
+            <div class="input-group">
+                <label>Durée (mois)</label>
+                <input type="number" name="duration" placeholder="ex: 6">
+            </div>
+
+            <button type="submit" class="btn-submit">Appliquer</button>
+        </form>
+    </aside>
+
+    <section class="liste-offres">
+        
+        <p class="result-count">
+            {{ offer|length }} offres trouvées
+        </p>
+        {% for item in offer %}
+            <article>
+                <div class="offre-header">
+                    <h3>{{ item.CompanyName|default('Entreprise non précisée') }}</h3>
+                    <p class="offre-title-text">{{ item.Title }}</p>
+                </div>
+
+                <div class="tags-container">
+                    <span class="tag">{{ item.Category }}</span>
+                    <span class="tag">{{ item.Duration }} mois</span>
+                    <span class="tag">{{ item.Salary }} €</span>
+                </div>
+                
+                <div class="offre-actions">
+                    {# 
+                       Bouton d'évaluation : 
+                       Utilise le même style que le bouton de postulation mais en jaune.
+                    #}
+                    {% if item.ID_company %}
+                        <a href="/evaluate/{{ item.ID_company }}" class="btn-postuler" style="background-color: #f1c40f; margin-right: 10px; border-color: #f1c40f;">
+                            Évaluer
+                        </a>
+                    {% endif %}
+
+                    <a href="/postuler/{{ item.ID_offer }}" class="btn-postuler">Voir l'offre</a>
+                </div>
+                <button class="btn-heart {% if item.ID_offer in wishlist_ids %}active{% endif %}" data-id="{{ item.ID_offer }}">
+                            <svg viewBox="0 0 24 24" width="28" height="28">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </button>
+            </article>
+        {% else %}
+            <div class="widget no-results">
+                <h3>Aucune offre trouvée 😢</h3>
+                <p>Essayez de modifier vos filtres ou de faire une recherche plus large.</p>
+            </div>
+        {% endfor %}
+
+    </section>
+
+</div>
+{% endblock %}

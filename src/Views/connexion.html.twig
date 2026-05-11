@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="split-fullscreen-layout">
+
+    <div class="split-image">
+        <img src="Asset/img/bienvenue.png" alt="image de bienvenue">
+    </div>
+
+    <div class="split-form">
+        <div class="form-card">
+            <h1 class="page-title">Se connecter</h1>
+
+            {% if erreur is defined and erreur %}
+                <div class="alert alert-error">
+                    {{ erreur }}
+                </div>
+            {% endif %}
+
+            {# FIX : action pointe vers la route /connexion                    #}
+            {# FIX : name="motDePasse" correspond à $_POST['motDePasse']       #}
+            <form action="/connexion" method="post">
+
+                <div class="input-group">
+                    <label for="email-user">Email</label>
+                    <input type="email" name="email" id="email-user" required
+                           autocomplete="email">
+                </div>
+
+                <div class="input-group">
+                    <label for="mdp">Mot de passe</label>
+                    {# FIX : name était "mdp", maintenant "motDePasse" #}
+                    <input type="password" name="motDePasse" id="mdp" required
+                           autocomplete="current-password">
+                </div>
+
+                <div class="forgot-password">
+                    <a href="/mot-de-passe-oublie"
+                       style="color: var(--primary-blue); text-decoration: none;
+                              font-size: 0.9rem; float: right;
+                              margin-top: -10px; margin-bottom: 20px;">
+                        Mot de passe oublié ?
+                    </a>
+                </div>
+
+                {# Option "Se souvenir de moi" — reliée au paramètre $sesouvenir #}
+                <div class="input-group" style="clear: both; display: flex; align-items: center; gap: .5rem;">
+                    <input type="checkbox" name="sesouvenir" id="sesouvenir" value="1">
+                    <label for="sesouvenir" style="margin: 0; font-size: 0.9rem;">
+                        Se souvenir de moi
+                    </label>
+                </div>
+
+                <div style="clear: both;"></div>
+                <input type="submit" value="Connexion" class="btn-submit">
+
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

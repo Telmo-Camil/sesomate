@@ -1,0 +1,1 @@
+alert('Votre candidature a bien été envoyée !');

@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+{% block content %}
+    <section class="layout-principal">
+        <div class="liste-offres">
+            <h1>
+                Ma Wish-list
+            </h1>
+            <div class="wishlist-container">
+                {% if offres is empty %}
+                    <p>
+                        Votre wish-list est vide pour le moment.
+                    </p>
+                    <a href="/" class="btn" style="display: inline-block; padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+                        Parcourir les offres
+                    </a>
+                {% else %}
+                    <div class="offres-grid">
+                        {% for offre in offres %}
+                            <article class="offre-card">
+                                <div class="offre-header">
+                                    <h3>
+                                        {{ offre.CompanyName|default('Entreprise non précisée') }}
+                                    </h3>
+                                    <p class="offre-title">
+                                        {{ offre.Title }}
+                                    </p>
+                                </div>
+                                <div class="offre-details">
+                                    {% if offre.Duration %}
+                                        <h4>
+                                            {{ offre.Duration }}
+                                            mois
+                                        </h4>
+                                    {% endif %}
+                                    {% if offre.Salary %}
+                                        <h4>
+                                            {{ offre.Salary }}
+                                            €
+                                        </h4>
+                                    {% endif %}
+                                    {% if offre.Category %}
+                                        <h4>
+                                            {{ offre.Category }}
+                                        </h4>
+                                    {% endif %}
+                                </div>
+                                 <div class="offre-actions">
+                                    <a href="/postuler/{{ offre.ID_offer }}" class="btn-postuler">
+                                        Postuler
+                                    </a>
+                                    {# --- AJOUT DU BOUTON WISHLIST --- #}
+                                    <div class="offre-actions" style="margin-top: 10px;">
+                                        {# Bouton pour retirer l'offre (SFx 25) #}
+                                        <a href="/wishlist/delete/{{ offre.ID_offer }}" class="btn-delete" style="color: #dc3545; text-decoration: none; border: 1px solid #dc3545; padding: 5px 10px; border-radius: 4px; font-size: 0.9em;">
+                                            🗑️ Retirer de la liste
+                                        </a>
+                                    </div>
+                                </article>
+                            {% else %}
+                                <p>
+                                    Votre Wishlist est vide.
+                                </p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+    {% block javascripts %}
+        <script src="../js/wishlist.js"></script>
+    {% endblock %}

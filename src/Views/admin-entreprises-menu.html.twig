@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<main class="main-centered">
+    <section class="form-section">
+        <h2 class="page-title">Gestion des Entreprises</h2>
+        
+        <div class="form-card company-menu-container">
+            <a href="/admin/entreprises/create" class="btn-submit btn-text-link">
+                Créer une nouvelle entreprise
+            </a>
+
+            <a href="/admin/entreprises/list" class="btn-submit btn-text-link btn-secondary">
+                Voir la liste des entreprises
+            </a>
+        </div>
+    </section>
+</main>
+{% endblock %}
