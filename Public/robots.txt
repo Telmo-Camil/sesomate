@@ -1,0 +1,17 @@
+User-agent: *
+# Autoriser les pages publiques principales
+Allow: /
+
+# Interdire les actions d'administration et de gestion
+Disallow: /admin/
+Disallow: /wishlist/add/
+Disallow: /wishlist/delete/
+Disallow: /postuler/
+Disallow: /evaluate/
+Disallow: /deconnexion
+
+# Interdire les pages de résultats de recherche (souvent du contenu dupliqué)
+Disallow: /admin/utilisateurs/results
+
+# Indiquer l'emplacement du sitemap
+Sitemap: http://SeSoMate.com/sitemap.xml
