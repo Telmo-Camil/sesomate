@@ -5,12 +5,16 @@ use App\Core\Controller;
 use App\Models\CompanyModel;
 use App\Models\AccessModel;
 
+/**
+ * Contrôleur gérant toutes les opérations liées aux entreprises.
+ * Correspond aux fonctionnalités SFx 2, 3, 4 et 6.
+ */
 class CompanyController extends Controller {
 
     private $companyModel;
 
     /**
-     * Constructeur : Initialise Twig, PDO et le modèle Company
+     * Constructeur : Initialise Twig, la connexion PDO et les modèles nécessaires.
      */
     public function __construct($twig, $pdo) {
         $this->twig = $twig;
@@ -20,7 +24,7 @@ class CompanyController extends Controller {
     }
 
     /**
-     * Menu principal de la gestion d'entreprise (écran de sélection de deux options)
+     * Affiche le menu principal de la gestion des entreprises.
      * URL: /admin/entreprises
      */
     public function index() {
@@ -29,7 +33,7 @@ class CompanyController extends Controller {
     }
 
     /**
-     * Formulaire de création d'entreprise à afficher
+     * Affiche le formulaire pour créer une nouvelle entreprise (SFx 3).
      * URL: /admin/entreprises/create
      */
     public function create() {
@@ -38,7 +42,7 @@ class CompanyController extends Controller {
     }
 
     /**
-     * Liste des entreprises
+     * Affiche la liste complète des entreprises et permet la recherche (SFx 2).
      * URL: /admin/entreprises/list
      */
     public function list() {
@@ -51,8 +55,7 @@ class CompanyController extends Controller {
     }
 
     /**
-     * Enregistrer l'entreprise
-     * URL: /admin/entreprises/store
+     * Traite les données du formulaire et enregistre l'entreprise en base de données (SFx 3).
      */
     public function store() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -67,7 +70,7 @@ class CompanyController extends Controller {
                 $success = $this->companyModel->create($data);
 
                 if ($success) {
-                    // Redigier aux pages listes si réussir à créer
+                    // Redirection vers la liste avec un message de succès
                     redirect('/admin/entreprises/list?success=created');
                 } else {
                     echo "Erreur lors de l'insertion dans la base de données.";
@@ -79,8 +82,8 @@ class CompanyController extends Controller {
     }
 
     /**
-     * Supprimer l'entreprise
-     * URL: /admin/entreprises/delete/:id
+     * Supprime une entreprise du système (SFx 6).
+     * @param int $id Identifiant de l'entreprise à supprimer.
      */
     public function delete($id) {
         $success = $this->companyModel->delete($id);
@@ -93,7 +96,7 @@ class CompanyController extends Controller {
     }
 
     /**
-     * Modifier l'entreprise
+     * Affiche le formulaire de modification pour une entreprise existante (SFx 4).
      */
     public function edit($id) {
         $company = $this->companyModel->getById($id);
@@ -101,7 +104,7 @@ class CompanyController extends Controller {
     }
 
     /**
-     * Mettre à jour après la modification
+     * Met à jour les informations de l'entreprise après modification (SFx 4).
      */
     public function update($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -116,11 +119,12 @@ class CompanyController extends Controller {
         }
     }
 
+    /**
+     * Affiche les évaluations et la moyenne d'une entreprise spécifique (SFx 2).
+     */
     public function showEvaluations($id_company) {
-        // On récupère les infos de l'entreprise (nom, etc.)
         $company = $this->companyModel->getById($id_company);
         
-        // On utilise le modèle d'évaluation pour récupérer les avis
         $evaluationModel = new \App\Models\EvaluationModel($this->pdo);
         $evaluations = $evaluationModel->getEvaluationsByCompany($id_company);
         $average = $evaluationModel->getAverageRate($id_company);

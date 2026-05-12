@@ -4,25 +4,22 @@ namespace App\Models;
 use App\Core\Model;
 use PDO;
 
+/**
+ * Modèle gérant les interactions avec la table des évaluations (Evaluate).
+ */
 class EvaluationModel extends Model
 {
-    /**
-     * Constructeur : Reçoit l'instance PDO pour les requêtes
-     */
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
     }
 
     /**
-     * Insère ou met à jour une évaluation pour une entreprise
-     * @param array $data Les données d'évaluation (id_user, id_company, rate, comment)
-     * @return bool Succès ou échec de l'opération
+     * Enregistre une évaluation. Si l'utilisateur a déjà noté cette entreprise, 
+     * la note existante est mise à jour (SFx 5).
      */
     public function saveEvaluation($data)
     {
-        // On utilise REPLACE INTO ou une vérification pour éviter les doublons 
-        // si un utilisateur a déjà évalué la même entreprise
         $sql = "INSERT INTO Evaluate (ID_user, ID_company, Rate, Comment) 
                 VALUES (:id_user, :id_company, :rate, :comment)
                 ON DUPLICATE KEY UPDATE Rate = :rate_upd, Comment = :comment_upd";
@@ -40,13 +37,10 @@ class EvaluationModel extends Model
     }
 
     /**
-     * Récupère toutes les évaluations d'une entreprise spécifique
-     * @param int $id_company L'identifiant de l'entreprise
-     * @return array Liste des commentaires et notes
+     * Récupère la liste des avis pour une entreprise donnée avec les noms des auteurs (SFx 2).
      */
     public function getEvaluationsByCompany($id_company)
     {
-        // On joint Evaluate avec User_ puis avec Profil pour avoir le nom complet
         $sql = "SELECT E.*, P.Name, P.Lastname, U.Email 
                 FROM Evaluate E
                 JOIN User_ U ON E.ID_user = U.ID_user
@@ -61,9 +55,8 @@ class EvaluationModel extends Model
     }
 
     /**
-     * Calcule la note moyenne d'une entreprise
-     * @param int $id_company L'identifiant de l'entreprise
-     * @return float|null La moyenne des notes
+     * Calcule la moyenne des notes reçues par une entreprise (SFx 2).
+     * @return float|null Retourne la moyenne ou null si aucune note n'est présente.
      */
     public function getAverageRate($id_company)
     {

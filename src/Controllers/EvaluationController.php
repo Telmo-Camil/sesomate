@@ -5,19 +5,19 @@ use App\Core\Controller;
 use App\Models\EvaluationModel;
 use App\Models\CompanyModel;
 
+/**
+ * Contrôleur gérant les évaluations données par les utilisateurs (SFx 5).
+ */
 class EvaluationController extends Controller
 {
     private $evaluationModel;
     private $companyModel;
 
     /**
-     * Constructeur : Initialise les modèles et Twig
-     * Note : Si la classe parente Controller n'a pas de constructeur, 
-     * on retire parent::__construct.
+     * Initialise les services nécessaires à l'évaluation.
      */
     public function __construct($twig, $pdo)
     {
-        // On initialise directement les propriétés si parent::__construct n'existe pas
         $this->twig = $twig;
         $this->pdo = $pdo;
         
@@ -26,15 +26,15 @@ class EvaluationController extends Controller
     }
 
     /**
-     * Affiche le formulaire d'évaluation
+     * Affiche l'interface permettant à l'étudiant de noter une entreprise (SFx 5).
      */
     public function create($id_company)
     {
-        // Vérification de la session utilisateur
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
+        // Vérifie si l'utilisateur est bien connecté avant d'évaluer
         if (!isset($_SESSION['user_id'])) {
             redirect('/connexion');
         }
@@ -52,7 +52,7 @@ class EvaluationController extends Controller
     }
 
     /**
-     * Enregistre l'évaluation
+     * Enregistre l'évaluation soumise dans la base de données (SFx 5).
      */
     public function store($id_company)
     {
@@ -80,7 +80,8 @@ class EvaluationController extends Controller
             $this->evaluationModel->saveEvaluation($data);
         }
 
-        redirect('/'); // Retour à l'accueil après évaluation
+        // Retour à la page d'accueil ou à la fiche entreprise après validation
+        redirect('/'); 
         exit();
     }
 }
