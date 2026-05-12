@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block main_class %}main-centered{% endblock %}
+
 {% block content %}
-<main class="main-centered">
     <section class="form-section">
         <h2 class="page-title">Modifier l'entreprise : {{ company.Name }}</h2>
         <div class="form-card">
@@ -30,5 +31,4 @@
             </form>
         </div>
     </section>
-</main>
 {% endblock %}

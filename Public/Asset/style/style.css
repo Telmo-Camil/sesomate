@@ -247,28 +247,38 @@ select:focus, input[type="email"]:focus {
     flex-shrink: 0;
 }
 
+/* Style pour les liens de connexion/déconnexion */
+.login-container a:not(.user-profile-link) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 20px;
+    background: var(--primary-dim);
+    color: var(--primary);
+    border: 1px solid rgba(26, 108, 245, 0.3);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all var(--transition);
+    white-space: nowrap;
+}
+
+/* Effet au survol */
+.login-container a:not(.user-profile-link):hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-blue);
+    border-color: var(--primary);
+}
+
 .login-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     flex-shrink: 0;
 }
-
-.login-container button {
-    background: linear-gradient(135deg, var(--primary) 0%, #0f4fd4 100%);
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: var(--radius-full);
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all var(--transition);
-    white-space: nowrap;
-    font-family: inherit;
-}
-
-.login-container button:hover { transform: translateY(-2px); box-shadow: var(--shadow-blue); }
 
 .user-profile-link {
     display: flex;
@@ -285,7 +295,10 @@ select:focus, input[type="email"]:focus {
     white-space: nowrap;
 }
 
-.user-profile-link:hover { border-color: var(--border); background: rgba(255,255,255,0.04); }
+.user-profile-link:hover {
+    border-color: var(--border);
+    background: rgba(255, 255, 255, 0.04);
+}
 
 .user-profile-link img {
     width: 30px;

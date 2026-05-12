@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
+{% block main_class %}main-register{% endblock %}
 {% block content %}
-    <main class="main-register">
         <form action="/inscription" method="post" enctype="multipart/form-data" class="register-split-container">
             <div class="split-left-upload">
                 <img src="/Asset/img/user.png" alt="Icône utilisateur par défaut" id="profile-preview" class="default-user-icon">
@@ -37,7 +37,7 @@
                                             <input type="password" id="password" name="password" required></div>
                                             <div class="input-group row-group">
                                                 <div class="half-width">
-                                                    <label for="utilisateur">
+                                                    <label for="Role">
                                                         Rôle * :
                                                     </label>
                                                     <select id="Role" name="Role" required>
@@ -56,7 +56,7 @@
                                                     <label for="phone">
                                                         Téléphone :
                                                     </label>
-                                                    <input type="phone" id="phone" name="phone"></div>
+                                                    <input type="tel" id="phone" name="phone"></div>
                                                 </div>
                                                 <button type="submit" class="btn-submit">
                                                     Créer un compte
@@ -64,7 +64,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                </main>
                             <script src="/js/preview.js" defer></script>
                             {% endblock %}
                             {% block javascripts %}

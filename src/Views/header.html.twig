@@ -22,15 +22,15 @@
     <div class="login-container">
     {% if user %}
         <a href="/deconnexion">
-            <button>Sign out</button>
+            Sign out
         </a>
     <a href="/espace-compte" class="user-profile-link">
-            <img src="/Asset/img/user.png" alt="Profil">
+            <img src="../Asset/img/user.png" alt="Profil">
             <span>{{ user.pseudo }}</span>
         </a>
     {% else %}
         <a href="/connexion">
-            <button>Sign in</button>
+            Sign in
         </a>
     {% endif %}
 </div>

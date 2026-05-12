@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block main_class %}main-centered dashboard-container{% endblock %}
+
 {% block content %}
-    <main class="main-centered dashboard-container">
         {% if user.admin == 1 %}
             <div class="titre-container dashboard-header">
                 <h1>
@@ -188,5 +189,4 @@
             </div>
         {% endif %}
 
-    </main>
 {% endblock %}

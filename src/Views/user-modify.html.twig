@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
+{% block main_class %}main-register{% endblock %}
 {% block content %}
-    <main class="main-register">
         {# ⚠️ Action modifiée pour update du compte #}
         <form action="/admin/utlisateur/modified/{{users.ID_user}}" method="post" enctype="multipart/form-data" class="register-split-container">
             <div class="split-left-upload">
@@ -52,7 +52,7 @@
 
                         <div class="half-width">
                             <label for="phone">Téléphone :</label>
-                            <input type="text" id="phone" name="phone" value="{{ users.Phone_number }}">
+                            <input type="tel" id="phone" name="phone" value="{{ users.Phone_number }}">
                         </div>
                     </div>
 
@@ -62,7 +62,6 @@
                 </div>
             </div>
         </form>
-    </main>
 <script src="/js/preview.js" defer></script>
 {% endblock %}
 
