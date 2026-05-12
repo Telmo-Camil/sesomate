@@ -1,5 +1,13 @@
 RewriteEngine On
 
+# Active le moteur de réécriture d'URL
+
 RewriteCond %{REQUEST_FILENAME} !-f
+# Vérifie si la requête ne correspond pas à un fichier existant
+
 RewriteCond %{REQUEST_FILENAME} !-d
+# Vérifie si la requête ne correspond pas à un dossier existant
+
 RewriteRule ^ index.php [L]
+# Redirige toutes les requêtes vers index.php
+# [L] signifie "Last rule" (dernière règle à appliquer)
