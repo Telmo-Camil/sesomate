@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>
-            {% block title %}
-                SeSoMate
-            {% endblock %}
-        </title>
-        <link rel="stylesheet" href="./Asset/style/style.css">
-    </head>
-    <body>
-        <header>
-            {% include "header.html.twig" %}
-        </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}SeSoMate — La plateforme de stages pour les étudiants CESI. Trouvez l'offre de stage qui correspond à votre profil.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}stage, offre de stage, CESI, étudiant, alternance{% endblock %}">
+    <meta name="robots" content="index, follow">
+    <title>{% block title %}SeSoMate — Trouvez votre stage idéal{% endblock %}</title>
+    <link rel="stylesheet" href="/Asset/style/style.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="site-header" role="banner">
+        {% include "header.html.twig" %}
+    </header>
 
-        <main class="{% block main_class %}{% endblock %}">
-            {% block content %}{% endblock %}
-        </main>
+    <main class="{% block main_class %}{% endblock %}" id="main-content">
+        {% block content %}{% endblock %}
+    </main>
 
-        <footer>
-            {% include "footer.html.twig" %}
-        </footer>
+    <footer class="site-footer" role="contentinfo">
+        {% include "footer.html.twig" %}
+    </footer>
 
-        {% block javascripts %}
-        {% endblock %}
-    </body>
+    {% block javascripts %}{% endblock %}
+</body>
 </html>
