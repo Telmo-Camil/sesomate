@@ -15,10 +15,9 @@ use App\Controllers\PromotionController;
 use App\Core\Router;
 use App\Core\Database;
 
-// ─── Détection automatique du chemin de base ─────────────────────────────────
-// Fonctionne à la racine (Docker) ET en sous-dossier WAMP
-// Ex: localhost/project_fixed/Public  →  BASE_PATH = '/project_fixed/Public'
-// Ex: à la racine                     →  BASE_PATH = ''
+// ─── Détection automatique du chemin de base (Serveur WAMP) ──────────────────
+// Permet au routage de fonctionner même si le projet est dans un sous-dossier
+// Ex: localhost/sesomate/public  →  BASE_PATH = '/sesomate/public'
 $scriptDir = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
 define('BASE_PATH', $scriptDir);
 define('BASE_URL',
